@@ -1,0 +1,115 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Add Employee</h1>
+    <a routerLink="/dashboard/employees" class="btn-secondary">Back to list</a>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+
+    <div class="grid">
+      <div class="field">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" type="text" formControlName="fullName" />
+        <!-- no binding formcontrolname becuase fullname is not variable because nested  -->
+        @if (form.get('fullName')?.invalid && form.get('fullName')?.touched) {
+        <span class="error">
+          @if (form.get('fullName')?.errors?.['required']) { Full name is required. }
+        </span>
+        }
+      </div>
+
+      <!-- Password must be at least 6 characters -->
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="your@email.com" />
+        @if (form.get('email')?.invalid && form.get('email')?.touched) {
+        <span class="error">
+          @if (form.get('email')?.errors?.['required']) { Email is required. }
+          @if (form.get('email')?.errors?.['email']) { Email should be valid. }
+        </span>
+        }
+      </div>
+    </div>
+
+
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" placeholder="••••••" />
+      @if (form.get('password')?.invalid && form.get('password')?.touched) {
+      <span class="error">
+        @if (form.get('password')?.errors?.['required']) { Password is required. }
+        @if (form.get('password')?.errors?.['minlength']) { Password must be at least 6 characters. }
+      </span>
+      }
+    </div>
+
+
+
+
+    <div class="field">
+      <label for="position">Position</label>
+      <input id="position" type="text" formControlName="position" />
+      @if (form.get('position')?.invalid && form.get('position')?.touched) {
+      <span class="error">
+        @if (form.get('position')?.errors?.['required']) { position is required. }
+      </span>
+      }
+    </div>
+
+
+
+    <!-- دلوقتي ال راجع مجموعه من الدي تي او بالاي دي بتاعهم ف دلوقتي الانتربوليشن بيشوف اليوزر قدامه الاسماء وال جنبه داه ال بيبعته انجلر للباكاند -->
+    <div class="grid">
+      <div class="field">
+        <label for="departmentId">Department</label>
+        <select id="departmentId" formControlName="departmentId">
+          <option [value]="null">Select department</option>
+          @for (d of departments; track d.id) {
+          <option [value]="d.id">{{ d.name }}</option>
+          }
+        </select>
+        @if (form.get('departmentId')?.invalid && form.get('departmentId')?.touched) {
+        <span class="error">
+          @if (form.get('departmentId')?.errors?.['required']) { departmentId is required. }
+          @if (form.get('departmentId')?.errors?.['min']) { departmentId must be at least 1 . }
+
+        </span>
+        }
+      </div>
+
+
+      <div class="field">
+        <label for="employee_role">Role</label>
+        <select id="employee_role" formControlName="employee_role">
+          <option [value]="null">Select Role</option>
+          @for (role of roles; track role) {
+          <option [value]="role">{{ role }}</option>
+          }
+        </select>
+        @if (form.get('employee_role')?.invalid && form.get('employee_role')?.touched) {
+        <span class="error">
+          @if (form.get('employee_role')?.errors?.['required']) { employee_role is required. }
+        </span>
+        }
+
+      </div>
+
+
+    </div>
+
+    <div class="field checkbox-field">
+      <label>
+        <input type="checkbox" formControlName="active" />
+        Active
+      </label>
+    </div>
+
+    @if (errorMessage) {
+    <p class="error-msg">{{ errorMessage }}</p>
+    }
+
+    <button type="submit" class="btn-primary" [disabled]="loading">Save</button>
+  </form>
+</div>

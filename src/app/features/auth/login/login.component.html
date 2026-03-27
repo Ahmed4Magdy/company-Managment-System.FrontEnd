@@ -1,0 +1,38 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1>Login</h1>
+    <p class="subtitle">Enter your email and password to sign in.</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="your@email.com" />
+        @if (form.get('email')?.invalid && form.get('email')?.touched) {
+        <span class="error">
+          @if (form.get('email')?.errors?.['required']) { Email is required. }
+          @if (form.get('email')?.errors?.['email']) { Please enter a valid email. }
+        </span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="••••••" />
+        @if (form.get('password')?.invalid && form.get('password')?.touched) {
+        <span class="error">
+          @if (form.get('password')?.errors?.['required']) { Password is required. }
+          @if (form.get('password')?.errors?.['minlength']) { Password must be at least 6 characters. }
+        </span>
+        }
+      </div>
+
+      @if (errorMessage) {
+      <p style="color: red;">{{ errorMessage }}</p>
+      }
+      @if (successMessage) {
+      <p style="color: green;">{{ successMessage }}</p>
+      }
+      <button type="submit" class="btn-primary" [disabled]="loading">login </button>
+    </form>
+  </div>
+</div>

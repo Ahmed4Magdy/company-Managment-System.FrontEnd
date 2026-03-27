@@ -1,0 +1,191 @@
+<div class="page">
+  <!-- Header -->
+  <div class="page-header">
+    <h1>Edit Employee</h1>
+    <a routerLink="/dashboard/employees" class="btn-secondary">Back to list</a>
+  </div>
+
+  <!-- Load Error -->
+  <p class="error" *ngIf="loadError">Employee not found.</p>
+
+  <!-- Form -->
+  <form *ngIf="!loadError" [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+    
+    <!-- Full Name & Email -->
+    <div class="grid">
+      <div class="field">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" type="text" formControlName="fullName" />
+        <span class="error" *ngIf="form.get('fullName')?.invalid && form.get('fullName')?.touched">
+          <span *ngIf="form.get('fullName')?.errors?.['required']">Full Name is required.</span>
+        </span>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" />
+        <span class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+          <span *ngIf="form.get('email')?.errors?.['required']">Email is required.</span>
+          <span *ngIf="form.get('email')?.errors?.['email']">Email should be valid.</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="field">
+      <label for="password">Password (leave blank to keep current)</label>
+      <input id="password" type="password" formControlName="password" placeholder="••••••" />
+      <span class="error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+        <span *ngIf="form.get('password')?.errors?.['required']">Password is required.</span>
+        <span *ngIf="form.get('password')?.errors?.['minlength']">
+          Password must be at least 6 characters.
+        </span>
+      </span>
+    </div>
+
+    <!-- Position -->
+    <div class="field">
+      <label for="position">Position</label>
+      <input id="position" type="text" formControlName="position" />
+      <span class="error" *ngIf="form.get('position')?.invalid && form.get('position')?.touched">
+        <span *ngIf="form.get('position')?.errors?.['required']">Position is required.</span>
+      </span>
+    </div>
+
+    <!-- Department & Role -->
+    <div class="grid">
+      <div class="field">
+        <label for="departmentId">Department</label>
+        <select id="departmentId" formControlName="departmentId">
+          <option [value]="null">Select department</option>
+          <option *ngFor="let d of departments" [value]="d.id">{{ d.name }}</option>
+        </select>
+        <span class="error" *ngIf="form.get('departmentId')?.invalid && form.get('departmentId')?.touched">
+          <span *ngIf="form.get('departmentId')?.errors?.['required']">Department is required.</span>
+          <span *ngIf="form.get('departmentId')?.errors?.['min']">Department must be at least 1.</span>
+        </span>
+      </div>
+
+      <div class="field">
+        <label for="employee_role">Role</label>
+        <select id="employee_role" formControlName="employee_role">
+          <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+        </select>
+        <span class="error" *ngIf="form.get('employee_role')?.invalid && form.get('employee_role')?.touched">
+          <span *ngIf="form.get('employee_role')?.errors?.['required']">Role is required.</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Hire Date & Active -->
+    <div class="grid">
+      <div class="field">
+        <label for="hireDate">Hire Date</label>
+        <input id="hireDate" type="date" formControlName="hireDate" />
+        <span class="error" *ngIf="form.get('hireDate')?.invalid && form.get('hireDate')?.touched">
+        </span>
+      </div>
+
+      <div class="field checkbox-field">
+        <label>
+          <input type="checkbox" formControlName="active" /> Active
+        </label>
+      </div>
+    </div>
+
+    <!-- Backend Error Message -->
+    <p class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn-primary" [disabled]="loading">Update</button>
+  </form>
+</div>
+
+
+<!-- <div class="page">
+  <div class="page-header">
+    <h1>Edit Employee</h1>
+    <a routerLink="/dashboard/employees" class="btn-secondary">Back to list</a>
+  </div>
+
+  @if (loadError) {
+    <p class="error">Employee not found.</p>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+      <div class="grid">
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <input id="fullName" type="text" formControlName="fullName" />
+          @if (form.get('fullName')?.invalid && form.get('fullName')?.touched) {
+            <span class="error">Required.</span>
+          }
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email" />
+          @if (form.get('email')?.invalid && form.get('email')?.touched) {
+            <span class="error">Valid email required.</span>
+          }
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="password">Password (leave blank to keep current)</label>
+        <input id="password" type="password" formControlName="password" />
+      </div>
+
+      <div class="field">
+        <label for="position">Position</label>
+        <input id="position" type="text" formControlName="position" />
+        @if (form.get('position')?.invalid && form.get('position')?.touched) {
+          <span class="error">Required.</span>
+        }
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="departmentId">Department</label>
+          <select id="departmentId" formControlName="departmentId">
+            <option [value]="0">Select department</option>
+            @for (d of departments; track d.id) {
+              <option [value]="d.id">{{ d.name }}</option>
+            }
+          </select>
+          @if (form.get('departmentId')?.invalid && form.get('departmentId')?.touched) {
+            <span class="error">Required.</span>
+          }
+        </div>
+        <div class="field">
+          <label for="employee_role">Role</label>
+          <select id="employee_role" formControlName="employee_role">
+            @for (r of roles; track r.value) {
+              <option [value]="r.value">{{ r.label }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="hireDate">Hire Date</label>
+          <input id="hireDate" type="date" formControlName="hireDate" />
+          @if (form.get('hireDate')?.invalid && form.get('hireDate')?.touched) {
+            <span class="error">Required.</span>
+          }
+        </div>
+        <div class="field checkbox-field">
+          <label>
+            <input type="checkbox" formControlName="active" />
+            Active
+          </label>
+        </div>
+      </div>
+
+      @if (errorMessage) {
+        <p class="error-msg">{{ errorMessage }}</p>
+      }
+
+      <button type="submit" class="btn-primary" [disabled]="loading">Update</button>
+    </form>
+  }
+</div> -->

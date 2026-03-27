@@ -1,0 +1,47 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Departments</h1>
+    <a routerLink="/dashboard/departments/create" class="btn-primary">Add Department</a>
+  </div>
+
+  @if (errorMessage) {
+  <p class="error-msg">{{ errorMessage }}</p>
+  }
+
+  <div class="table-wrap">
+    @if (loading) {
+    <p class="loading">Loading...</p>
+    } @else {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Department Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        @for (d of departments; track d.id) {
+        <tr>
+          <td>{{ d.id }}</td>
+          <td>{{ d.name }}</td>
+          <td>{{ d.description }}</td>
+
+          <td class="actions">
+            <a [routerLink]="['/dashboard/departments', d.id]" class="btn-link">View</a>
+            <a [routerLink]="['/dashboard/departments', d.id, 'edit']" class="btn-link">Edit</a>
+            <button type="button" class="btn-link danger" (click)="d.id != null && deleteDepartment(d.id)">Delete</button>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="4">No departments found.</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
+  </div>
+</div>

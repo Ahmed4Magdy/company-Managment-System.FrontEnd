@@ -1,0 +1,29 @@
+<div class="page">
+    <div class="page-header">
+        <h1>Department Details</h1>
+        <a routerLink="/dashboard/departments" class="btn-secondary">Back to list</a>
+    </div>
+
+    @if (loading) {
+    <p class="loading">Loading...</p>
+    } @else if (department) {
+    <div class="detail-grid">
+        <div class="detail-item">
+            <span class="label">ID</span>
+            <span class="value">{{ department.id }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="label">Department Name</span>
+            <span class="value">{{ department.name }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="label"> Description</span>
+            <span class="value">{{ department.description }}</span>
+        </div>
+       
+    </div>
+    <a [routerLink]="['/dashboard/departments', department.id, 'edit']" class="btn-primary">Edit</a>
+    } @else {
+    <p class="error">Employee not found.</p>
+    }
+</div>

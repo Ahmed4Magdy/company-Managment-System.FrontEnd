@@ -1,0 +1,43 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Projects</h1>
+    <a routerLink="/dashboard/projects/create" class="btn-primary">Add Task</a>
+</div>
+    <div class="table-wrap">
+    <table *ngIf="projects.length > 0" class="data-table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>StartDate</th>
+          <th>EndDate</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+        <tbody>
+        <tr *ngFor="let p of projects; trackBy: trackById">
+          <td>{{ p.id }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.description }}</td>
+          <td>{{ p.startDate }}</td>
+          <td>{{ p.endDate }}</td>
+          <td>{{ p.status}}</td>
+        
+          <td class="actions">
+            <a [routerLink]="['/dashboard/projects', p.id]" class="btn-link">View</a>
+            <a [routerLink]="['/dashboard/projects', p.id, 'edit']" class="btn-link">Edit</a>
+            <button type="button" class="btn-link danger"
+              (click)="p.id != null && deleteProject(p.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty state -->
+    <!-- <p *ngIf="!loading && employees.length === 0">No employees found.</p> -->
+    <p *ngIf="projects.length === 0">No projects found.</p>
+
+  </div>
+  </div>

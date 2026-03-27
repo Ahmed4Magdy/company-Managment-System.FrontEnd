@@ -1,0 +1,66 @@
+<div class="page">
+  <!-- Header -->
+  <div class="page-header">
+    <h1>Edit Project</h1>
+    <a routerLink="/dashboard/projects" class="btn-secondary">Back to list</a>
+  </div>
+
+  <!-- Load Error -->
+  <p class="error" *ngIf="loadError">Project not found.</p>
+
+  <!-- Form -->
+  <form *ngIf="!loadError" [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+    
+    <!-- Full Name & Email -->
+    <div class="grid">
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" type="text" formControlName="name" />
+        <span class="error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+          <span *ngIf="form.get('name')?.errors?.['required']"> Project name is required.</span>
+        </span>
+      </div>
+
+      <div class="field">
+        <label for="description">Description</label>
+        <input id="description" type="description" formControlName="description" />
+       
+      </div>
+
+      <div class="field">
+        <label for="startDate">StartDate</label>
+        <input id="startDate" type="date" formControlName="startDate" />
+        <span class="error" *ngIf="form.get('startDate')?.invalid && form.get('startDate')?.touched">
+          <span *ngIf="form.get('startDate')?.errors?.['required']"> Start date is required.</span>
+        </span>
+    </div>
+
+     <div class="field">
+        <label for="endDate">EndDate</label>
+        <input id="endDate" type="date" formControlName="endDate" />
+        <span class="error" *ngIf="form.get('endDate')?.invalid && form.get('endDate')?.touched">
+          <span *ngIf="form.get('endDate')?.errors?.['required']"> End date is required.</span>
+        </span>
+    </div>
+
+    
+
+      <div class="field">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status">
+          <option *ngFor="let s of status" [value]="s">{{ s }}</option>
+        </select>
+        
+      </div>
+    </div>
+
+   
+
+    <!-- Backend Error Message -->
+    <p class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn-primary" [disabled]="loading">Update</button>
+  </form>
+</div>
+

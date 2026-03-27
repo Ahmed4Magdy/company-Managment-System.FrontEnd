@@ -1,0 +1,127 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Employees</h1>
+    <a routerLink="/dashboard/employees/create" class="btn-primary">Add Employee</a>
+  </div>
+
+  <div class="filters">
+    <button type="button" class="filter-btn" [class.active]="filter === 'all'" (click)="setFilter('all')">All</button>
+    <button type="button" class="filter-btn" [class.active]="filter === 'active'"
+      (click)="setFilter('active')">Active</button>
+    <button type="button" class="filter-btn" [class.active]="filter === 'inactive'"
+      (click)="setFilter('inactive')">Inactive</button>
+  </div>
+
+  <div class="table-wrap">
+    <!-- Loading -->
+    <!-- <p *ngIf="loading" class="loading">Loading...</p> -->
+
+    <!-- Table -->
+    <!-- <table *ngIf="!loading && employees.length > 0" class="data-table"> -->
+    <table *ngIf="employees.length > 0" class="data-table">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Position</th>
+          <th>Role</th>
+          <th>Department Name</th>
+          <th>Department ID</th>
+          <th>Active</th>
+          <th>HireDate</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees; trackBy: trackById">
+          <td>{{ emp.id }}</td>
+          <td>{{ emp.fullName }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.position }}</td>
+          <td>{{ emp.employee_role }}</td>
+          <td>{{ emp.departmentName}}</td>
+          <td>{{ emp.departmentId }}</td>
+          <td>{{emp.active}}</td>
+          <td>{{emp.hireDate}}</td>
+
+          <td class="actions">
+            <a [routerLink]="['/dashboard/employees', emp.id]" class="btn-link">View</a>
+            <a [routerLink]="['/dashboard/employees', emp.id, 'edit']" class="btn-link">Edit</a>
+            <button type="button" class="btn-link danger"
+              (click)="emp.id != null && deleteEmployee(emp.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty state -->
+    <!-- <p *ngIf="!loading && employees.length === 0">No employees found.</p> -->
+    <p *ngIf="employees.length === 0">No employees found.</p>
+
+  </div>
+</div>
+
+
+
+<!-- <div class="page">
+  <div class="page-header">
+    <h1>Employees</h1>
+    <a routerLink="/dashboard/employees/create" class="btn-primary">Add Employee</a>
+  </div>
+
+  <div class="filters">
+    <button type="button" class="filter-btn" [class.active]="filter === 'all'" (click)="setFilter('all')">All</button>
+    <button type="button" class="filter-btn" [class.active]="filter === 'active'"
+      (click)="setFilter('active')">Active</button>
+    <button type="button" class="filter-btn" [class.active]="filter === 'inactive'"
+      (click)="setFilter('inactive')">Inactive</button>
+  </div>
+
+  <div class="table-wrap">
+    @if (loading) {
+    <p class="loading">Loading...</p>
+    } @else {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Position</th>
+          <th>Role</th>
+          <th>DepartmentName</th>
+          <th>departmentId</th>
+
+          <th>Action</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        @for (emp of employees; track emp.id) {
+        <tr>
+          <td>{{ emp.id }}</td>
+          <td>{{ emp.fullName }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.position }}</td>
+          <td>{{ emp.employee_role }}</td>
+          <td>{{ emp.departmentName}}</td>
+          <td>{{ emp.departmentId}}</td>
+
+          <td class="actions">
+            <a [routerLink]="['/dashboard/employees', emp.id]" class="btn-link">View</a>
+            <a [routerLink]="['/dashboard/employees', emp.id, 'edit']" class="btn-link">Edit</a>
+            <button type="button" class="btn-link danger" (click)="deleteEmployee(emp.id)">Delete</button>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="7">No employees found.</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
+  </div>
+</div> -->

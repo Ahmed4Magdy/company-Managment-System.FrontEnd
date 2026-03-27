@@ -1,0 +1,58 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Add Project</h1>
+    <a routerLink="/dashboard/projects" class="btn-secondary">Back to list</a>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+
+    <div class="grid">
+      <div class="field">
+        <label for="Name">Name</label>
+        <input id="Name" type="text" formControlName="name" />
+        @if (form.get('name')?.invalid && form.get('name')?.touched) {
+        <span class="error">
+          @if (form.get('name')?.errors?.['required']) { Project name is required. }
+        </span>
+        }
+      </div>
+
+
+      <div class="field">
+        <label for="description">Description</label>
+        <input id="description" type="description" formControlName="description"  />
+      </div>
+    </div>
+
+
+
+    <div class="field">
+      <label for="startDate">StartDate</label>
+      <input id="startDate" type="date" formControlName="startDate" />
+      @if (form.get('startDate')?.invalid && form.get('startDate')?.touched) {
+      <span class="error">
+        @if (form.get('startDate')?.errors?.['required']) { startDate is required. }
+      </span>
+      }
+    </div>
+
+
+
+
+    <div class="field">
+      <label for="endDate">EndDate</label>
+      <input id="endDate" type="date" formControlName="endDate" />
+      @if (form.get('endDate')?.invalid && form.get('endDate')?.touched) {
+      <span class="error">
+        @if (form.get('endDate')?.errors?.['required']) { endDate is required. }
+      </span>
+      }
+    </div>
+
+    @if (errorMessage) {
+    <p class="error-msg">{{ errorMessage }}</p>
+    }
+
+    <button type="submit" class="btn-primary" [disabled]="loading">Save</button>
+  </form>
+</div>

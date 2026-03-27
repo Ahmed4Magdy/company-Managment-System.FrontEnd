@@ -1,0 +1,31 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Edit Department</h1>
+    <a routerLink="/dashboard/departments" class="btn-secondary">Back to list</a>
+  </div>
+
+  @if (loadError) {
+    <p class="error">Department not found.</p>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+      <div class="field">
+        <label for="name">Department Name</label>
+        <input id="name" type="text" formControlName="name" />
+        @if (form.get('name')?.invalid && form.get('name')?.touched) {
+          <span class="error">Department name is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" rows="3"></textarea>
+      </div>
+
+      @if (errorMessage) {
+        <p class="error-msg">{{ errorMessage }}</p>
+      }
+
+      <button type="submit" class="btn-primary" [disabled]="loading">Update</button>
+    </form>
+  }
+</div>

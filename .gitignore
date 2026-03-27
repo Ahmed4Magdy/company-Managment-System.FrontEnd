@@ -1,0 +1,26 @@
+# Node dependencies
+node_modules/
+
+# Build output
+dist/
+out-tsc/
+build/
+
+# Angular CLI cache
+.angular/cache/
+
+# Logs and temp files
+*.log
+*.tmp
+*.bak
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files (if you have secrets)
+src/environments/*.ts
