@@ -1,1 +1,39 @@
-<p>project-detail works!</p>
+<div class="page">
+    <div class="page-header">
+        <h1>Project Details</h1>
+        <a routerLink="/dashboard/projects" class="btn-secondary">Back to list</a>
+    </div>
+
+    @if (loading) {
+    <p class="loading">Loading...</p>
+    } @else if (project) {
+    <div class="detail-grid">
+        <div class="detail-item">
+            <span class="label">Name</span>
+            <span class="value">{{ project.id }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="label">Description</span>
+            <span class="value">{{ project.description }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="label"> StartDate</span>
+            <span class="value">{{ project.startDate }}</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="label"> EndDate</span>
+            <span class="value">{{ project.endDate }}</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="label"> Status</span>
+            <span class="value">{{ project.status }}</span>
+        </div>
+
+    </div>
+    <a [routerLink]="['/dashboard/projects', project.id, 'edit']" class="btn-primary">Edit</a>
+    } @else {
+    <p class="error">Project not found.</p>
+    }
+</div>

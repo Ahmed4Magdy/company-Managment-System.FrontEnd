@@ -14,9 +14,10 @@ export const routes: Routes = [
       { path: 'employees/create', loadComponent: () => import('./features/employees/create-employee/create-employee.component').then(m => m.CreateEmployeeComponent) },
       { path: 'employees/:id', loadComponent: () => import('./features/employees/employee-detail/employee-detail.component').then(m => m.EmployeeDetailComponent) },
       { path: 'employees/:id/edit', loadComponent: () => import('./features/employees/edit-employee/edit-employee.component').then(m => m.EditEmployeeComponent) },
+
       { path: 'departments', loadComponent: () => import('./features/departments/department-list/department-list.component').then(m => m.DepartmentListComponent) },
-      { path: 'departments/:id', loadComponent: () => import('./features/departments/department-detail/department-detaill/department-detail.component').then(m => m.DepartmentDetailComponent) },
       { path: 'departments/create', loadComponent: () => import('./features/departments/create-department/create-department.component').then(m => m.CreateDepartmentComponent) },
+      { path: 'departments/:id', loadComponent: () => import('./features/departments/department-detail/department-detaill/department-detail.component').then(m => m.DepartmentDetailComponent) },
       { path: 'departments/:id/edit', loadComponent: () => import('./features/departments/edit-department/edit-department.component').then(m => m.EditDepartmentComponent) },
 
       { path: 'projects', loadComponent: () => import('./features/projects/list-project/list-project.component').then(m => m.ListProjectComponent) },
@@ -24,7 +25,11 @@ export const routes: Routes = [
       { path: 'projects/:id', loadComponent: () => import('./features/projects/project-detail/project-detail.component').then(m => m.ProjectDetailComponent) },
       { path: 'projects/:id/edit', loadComponent: () => import('./features/projects/edit-project/edit-project.component').then(m => m.EditProjectComponent) },
 
-      { path: 'tasks', loadComponent: () => import('./features/tasks/task-list/task-list.component').then(m => m.TaskListComponent) },
+      { path: 'tasks', loadComponent: () => import('./features/tasks/list-task/list-task.component').then(m => m.ListTaskComponent) },
+      { path: 'tasks/create', loadComponent: () => import('./features/tasks/create-task/create-task.component').then(m => m.CreateTaskComponent) },
+      { path: 'tasks/:id', loadComponent: () => import('./features/tasks/detail-task/detail-task.component').then(m => m.DetailTaskComponent) },
+      { path: 'tasks/:id/edit', loadComponent: () => import('./features/tasks/edit-task/edit-task.component').then(m => m.EditTaskComponent) },
+
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' },

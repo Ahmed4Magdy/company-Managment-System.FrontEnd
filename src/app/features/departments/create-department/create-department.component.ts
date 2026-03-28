@@ -43,7 +43,7 @@ export class CreateDepartmentComponent {
         };
 
     this.departmentService.createDepartment(dto).subscribe({
-      
+
       next: () => this.router.navigate(['/dashboard/departments']),
       
       error: (err) => {

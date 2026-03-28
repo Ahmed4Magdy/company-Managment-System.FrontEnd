@@ -1,0 +1,128 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Edit Task</h1>
+    <a routerLink="/dashboard/tasks" class="btn-secondary">Back to list</a>
+  </div>
+
+  @if (loadError) {
+    <p class="error-msg">Failed to load task.</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+
+    <!-- Title -->
+    <div class="field">
+      <label for="title">Title</label>
+      <input id="title" type="text" formControlName="title" placeholder="Task title" />
+      @if (form.get('title')?.invalid && form.get('title')?.touched) {
+        <span class="error">Title is required.</span>
+      }
+    </div>
+
+    <!-- Description -->
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" placeholder="Task description"></textarea>
+      @if (form.get('description')?.invalid && form.get('description')?.touched) {
+        <span class="error">Description is required.</span>
+      }
+    </div>
+
+    <!-- Deadline -->
+    <div class="field">
+      <label for="deadline">Deadline</label>
+      <input id="deadline" type="date" formControlName="deadline" />
+      @if (form.get('deadline')?.invalid && form.get('deadline')?.touched) {
+        <span class="error">Deadline is required.</span>
+      }
+    </div>
+
+     
+
+    <!-- Status -->
+    <div class="field">
+      <label for="status">Status</label>
+      <select id="status" formControlName="status">
+        <option [ngValue]="null" disabled>Select status</option>
+        @for (s of statuses; track s) {
+          <option [value]="s">{{ s }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Employee -->
+    <div class="field">
+      <label>Employee</label>
+      <input
+        type="text"
+        [(ngModel)]="employeeQuery"
+        [ngModelOptions]="{standalone: true}"
+        placeholder="Search by name or email..."
+        (input)="showEmployeeList = true"
+        (focus)="showEmployeeList = true"
+        (blur)="showEmployeeList = false" />
+
+      @if (showEmployeeList && filteredEmployees.length > 0) {
+        <ul class="employee-list">
+          @for (emp of filteredEmployees; track emp.id) {
+            <li (mousedown)="selectEmployee(emp)"
+                [class.selected]="form.get('employeeId')?.value === emp.id">
+              <span class="emp-name">{{ emp.fullName }}</span>
+              <span class="emp-email">{{ emp.email }}</span>
+            </li>
+          }
+        </ul>
+      }
+
+      @if (selectedEmployee) {
+        <div class="selected-info">
+          <span class="selected-name">{{ selectedEmployee.fullName }}</span>
+          <span class="selected-email">{{ selectedEmployee.email }}</span>
+        </div>
+      }
+
+      @if (form.get('employeeId')?.invalid && form.get('employeeId')?.touched) {
+        <span class="error">Employee is required.</span>
+      }
+    </div>
+
+    <!-- Project -->
+    <div class="field">
+      <label>Project</label>
+      <input
+        type="text"
+        [(ngModel)]="projectQuery"
+        [ngModelOptions]="{standalone: true}"
+        placeholder="Search project..."
+        (input)="showProjectList = true"
+        (focus)="showProjectList = true"
+        (blur)="showProjectList = false" />
+
+      @if (showProjectList && filteredProjects.length > 0) {
+        <ul class="employee-list">
+          @for (proj of filteredProjects; track proj.id) {
+            <li (mousedown)="selectProject(proj)"
+                [class.selected]="form.get('projectId')?.value === proj.id">
+              <span class="emp-name">{{ proj.name }}</span>
+            </li>
+          }
+        </ul>
+      }
+
+      @if (form.get('projectId')?.invalid && form.get('projectId')?.touched) {
+        <span class="error">Project is required.</span>
+      }
+    </div>
+
+    <!-- Backend error -->
+    @if (errorMessage) {
+      <p class="error-msg">{{ errorMessage }}</p>
+    }
+
+    <!-- Submit -->
+    <button type="submit" class="btn-primary" [disabled]="loading">
+      {{ loading ? 'Saving...' : 'Save Changes' }}
+    </button>
+
+  </form>
+</div>

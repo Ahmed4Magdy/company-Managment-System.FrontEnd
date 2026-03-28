@@ -65,7 +65,23 @@ export class AuthService {
           localStorage.setItem('token', res.token); //Save token in browser storage
         })
       );
+
+
   }
+
+
+  getUsername(): string {
+  const token = localStorage.getItem('token');
+  if (!token) return '';
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.sub ?? payload.name ?? payload.username ?? '';
+  } catch {
+    return '';
+  }
+}
+
 
   logout(): void {
     localStorage.removeItem('token');  // delete token when user is loggedout

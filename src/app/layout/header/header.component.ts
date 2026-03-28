@@ -14,6 +14,14 @@ export class HeaderComponent {
     private router: Router
   ) {}
 
+   username = '';
+
+ 
+
+  ngOnInit(): void {
+    this.username = this.auth.getUsername();
+  }
+
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);

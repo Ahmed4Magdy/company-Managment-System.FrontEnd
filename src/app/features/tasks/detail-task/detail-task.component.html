@@ -1,0 +1,46 @@
+<div class="page">
+    <div class="page-header">
+        <h1>Task Details</h1>
+        <a routerLink="/dashboard/tasks" class="btn-secondary">Back to list</a>
+    </div>
+
+@if (task) {
+  <div class="detail-grid">
+
+    <div class="detail-item">
+      <span class="label">Title</span>
+      <span class="value">{{ task.title }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Status</span>
+      <span [class]="getStatusClass(task.status?.toString())">{{ task.status }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Deadline</span>
+      <span class="value">{{ task.deadline }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Employee</span>
+      <span class="value">{{ task.employeeName }}</span>
+      <span class="sub">{{ task.employeeEmail }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Project</span>
+      <span class="value">{{ task.projectName }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Description</span>
+      <span class="value">{{ task.description }}</span>
+    </div>
+
+  </div>
+
+<a [routerLink]="['/dashboard/tasks', task.id, 'edit']" class="btn-primary">Edit</a>
+    } @else {
+    <p class="error">task not found.</p>
+    }

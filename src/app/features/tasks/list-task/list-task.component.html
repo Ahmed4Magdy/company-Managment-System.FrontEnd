@@ -1,0 +1,69 @@
+<div class="page">
+    <div class="page-header">
+        <h1>Tasks</h1>
+        <a routerLink="/dashboard/tasks/create" class="btn-primary">Add Task</a>
+    </div>
+
+
+
+    <div class="table-wrap">
+        <table *ngIf="tasks.length > 0" class="data-table">
+
+            <thead>
+                <tr>
+                    <!-- <th>ID</th> -->
+                    <!-- <th>EmployeeID</th> -->
+                    <!-- <th>EmployeeName</th> -->
+                    <!-- <th>EmployeeEmail</th> -->
+                    <th>Email</th>
+                    <!-- <th>ProjectID</th> -->
+                    <th>ProjectName</th>
+                    <th>Title</th>
+                    <th>description</th>
+                    <th>deadline</th>
+                    <th>status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of tasks; trackBy: trackById">
+
+
+
+
+
+                    <td>
+                        <div class="employee-cell">
+                            <span class="name">
+                                {{ t.employeeName ?? '-' }}
+                            </span>
+                            <small class="email">
+                                {{ t.employeeEmail ?? '-' }}
+                            </small>
+                        </div>
+                    </td>
+
+
+                    <td>{{ t.projectName}}</td>
+
+
+                    <td>{{ t.title }}</td>
+                    <td>{{t.description}}</td>
+                    <td>{{t.deadline}}</td>
+                    <td>{{t.status}}</td>
+
+
+                    <td class="actions">
+                        <a [routerLink]="['/dashboard/tasks', t.id]" class="btn-link">View</a>
+                        <a [routerLink]="['/dashboard/tasks', t.id, 'edit']" class="btn-link">Edit</a>
+                        <button type="button" class="btn-link danger"
+                            (click)="t.id != null && deleteTask(t.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p *ngIf="tasks.length === 0">No tasks found.</p>
+
+    </div>
+</div>
