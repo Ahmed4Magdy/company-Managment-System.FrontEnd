@@ -81,13 +81,12 @@ export class EmployeeListComponent implements OnInit {
   }
 
   // نستخدم departmentName مباشرة من DTO
-  getDepartmentName(emp: EmployeeDto): string {
-    return emp.departmentName ?? '—';
-  }
+  // getDepartmentName(emp: EmployeeDto): string {
+  //   return emp.departmentName ?? '—';
+  // }
 
 
   deleteEmployee(id: number): void {
-    // الحذف بالـ id فقط
     this.employeeService.deleteEmployee(id).subscribe({
       next: () => this.employees = this.employees.filter(emp => emp.id !== id),
       error: () => alert('Failed to delete.'),

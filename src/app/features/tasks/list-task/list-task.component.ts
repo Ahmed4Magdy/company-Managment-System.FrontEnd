@@ -46,9 +46,9 @@ export class ListTaskComponent {
   //   return t.employeeEmail ?? '—';
   // }
 
-  getProjectName(t: TaskDto): string {
-    return t.projectName ?? '—';
-  }
+  // getProjectName(t: TaskDto): string {
+  //   return t.projectName ?? '—';
+  // }
 
   trackById(index: number, t: TaskDto): number {
     return t.id ?? index;
